@@ -20,7 +20,7 @@
     color: #FFF;
   }
   
-  @media (max-width: 850px) {
+  @media (max-width: 50px) {
     .main-header {
       justify-content: center;
     }

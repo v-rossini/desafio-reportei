@@ -2,11 +2,14 @@
 
 :root {
   --color-turquoise: #00D4FF;
+  --color-emerald: #42e29a;
   --color-orange: #ed7947;
   --color-yellow: #e89e10;
+  --color-darkred:#a00f19;
   --color-dimgray: #4c5d67;
   --color-darkslategray: #37474f;
-  --color-black: #201652;
+  --color-darkblue: #201652;
+  --color-black: #0b1f34;
 }
 
 body, html {
