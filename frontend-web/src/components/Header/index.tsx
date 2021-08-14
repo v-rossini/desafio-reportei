@@ -1,5 +1,4 @@
 import React from "react";
-import {ReactComponent as DeathStarIcon} from "../../assets/death-star.svg"
 import DeathStar from "../../assets/death-star.png"
 import './styles.css'
 
