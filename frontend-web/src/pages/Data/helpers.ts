@@ -6,7 +6,7 @@ export function fetchData (DATA: string, FILTER: "?page=" | "?search=", VALUE: s
     return axios.get(`${BASE_URL}/${DATA}/${FILTER}${VALUE}`);
 }
 
-export  function processData(text: string | Array<string>) {
+export function processData(text: string | Array<string>) {
     if (Array.isArray(text))
         return (text.length > 0) ? text.length : "-"
     else
