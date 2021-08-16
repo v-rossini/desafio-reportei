@@ -2,16 +2,17 @@ import React from "react"
 import "./styles.css"
 
 type Props = {
-    numberOfPages?: number;
+    numberOfRecords : number;
     changePage: Function;
     currentPage: number;
 }
 
-const Pagination = ({numberOfPages = 1, changePage, currentPage} : Props) => {
-    const pageButtons = Array.from(Array(numberOfPages).keys())
+const Pagination = ({numberOfRecords = 1, changePage, currentPage} : Props) => {
+    const pageButtons = Array.from(Array(Math.ceil(numberOfRecords / 10)).keys())
 
     return (
         <div className = "pagination-container">
+            <div  className = "pagination-total">Total: {numberOfRecords}</div>
             {pageButtons.map(page => (
                 <button 
                     key={page+1}
@@ -20,8 +21,10 @@ const Pagination = ({numberOfPages = 1, changePage, currentPage} : Props) => {
                         {page+1}
                 </button>
                 )        
-            )}
+            )
+            }
 
+            
         </div>
     )
 }

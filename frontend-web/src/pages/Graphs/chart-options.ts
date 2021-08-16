@@ -3,30 +3,31 @@ export const pieOptions = {
       background: "transparent",
       foreColor: "red",
     },
-    colors: ["#a8dadc", "#ed7947", "#00D4FF", "#ffd6a5"],
+    colors: ["#a8dadc", "#ed7947", "#00D4FF", "#ffd6a5", "#a00f19"],
     legend: {
-      show: false,
+      show: true,
     },
     tooltip: {
       enabled: true,
     },
     dataLabels: {
+      formatter: function (val, opt) { return opt.w.config.series[opt.seriesIndex]},
       enabled: true,
-      offsetX: "100px",
-      offsetY: "100px",
+//      offsetX: "100px",
+//      offsetY: "100px",
       style: {
-        colors: ["#a8dadc", "#ed7947", "#00D4FF", "#ffd6a5"],
-        fontSize: "20px",
+        colors: ["#a8dadc", "#ed7947", "#00D4FF", "#ffd6a5", "#a00f19"],
+        fontSize: "25px",
         fontFamily: "Play, sans-serif",
         fontWeight: 700,
-      },
+      }
     },
     plotOptions: {
       pie: {
         customScale: 0.7,
         expandOnClick: false,
         dataLabels: {
-          offset: 60,
+          offset: 40,
         },
       },
     },

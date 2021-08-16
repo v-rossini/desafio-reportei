@@ -68,13 +68,18 @@ const headers = {
 
 }
 
+
+
 const Data = () => {
-  const CURRENT_SEARCH = "?page=";
+  
 
   const [recordsData, setRecords] = useState<record[]>();
-  const [numberOfPages, setNumberOfPages] = useState<number>(1);
+  const [numberOfRecords, setNumberOfRecords] = useState<number>(1);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [currentTab, setCurrentTab] = useState("people");
+  const [currentSearch, setCurrentSearch] = useState("?page=")
+
+ 
 
   const changePage = (index: number) => {
     if (index !== currentPage) setCurrentPage(index);
@@ -91,14 +96,15 @@ const Data = () => {
   useEffect(() => {
     let promiseActive = true
     axios
-      .get(`${BASE_URL}/${currentTab}/${CURRENT_SEARCH}${currentPage}`)
+      .get(`${BASE_URL}/${currentTab}/${currentSearch}${currentPage}`)
       .then(response => { 
         if (promiseActive){
-          setNumberOfPages(Math.ceil(response.data.count / 10));
+          setNumberOfRecords(response.data.count );
           setRecords(response.data.results);
       }
       })
-      .catch((error) => console.log(error))    ;  
+      .catch((error) => console.log(error))    ;
+
       return () => {promiseActive = false}
     
   }, [currentPage, currentTab]);
@@ -106,7 +112,7 @@ const Data = () => {
   return (
     
     <div className="page-container">
-      <Filter link="/graphs"  text="Ver gráficos" search = {false}  />
+      <Filter link="/graphs"  text="GRÁFICOS" search = {false}  />
       <Tabs currentTab={currentTab} changeTab={changeTab} />
       <table className="records-table" cellPadding="0" cellSpacing="0">
         <thead>
@@ -121,11 +127,12 @@ const Data = () => {
          (
           <tbody>
             {
+
               recordsData?.map((record) => (
                 <tr key={record.url}>
                   {Object.keys(headers[currentTab]).map(field => (
 
-                    <td>{processData(record[field])}</td>
+                    <td id={`${record.url}/${field}`}>{processData(record[field])}</td>
                   ))}
                 </tr>
               ))}
@@ -142,7 +149,7 @@ const Data = () => {
       <Pagination
         currentPage={currentPage}
         changePage={changePage}
-        numberOfPages={numberOfPages}
+        numberOfRecords={numberOfRecords}
       />
     </div>
   );
