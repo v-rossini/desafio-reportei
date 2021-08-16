@@ -104,10 +104,10 @@
   }
   
   .filters-container .action-filters {
-    background-color: var(--color-turquoise);
+    background-color: var(--color-emerald);
     color: #0E1B28;
   }
   
   .filters-container .action-filters:hover {
-    background-color: #04c7ef;
+    background-color: #21d383;
   }

@@ -7,19 +7,26 @@ type Props = {
 }
 
 const Tabs = ({currentTab = "people", changeTab} : Props) => {
-    const tabButtons = [["people", "PESSOAS"],["planets", "PLANETAS"],["vehicles", "VEÍCULOS"],
-                ["starships", "NAVES"],["films", "FILMES"],["species", "ESPÉCIES"]]
+
+    const tabs = {
+        people: "PESSOAS",
+        planets: "PLANETAS",
+        vehicles: "VEÍCULOS",
+        starships: "NAVES",
+        films: "FILMES",
+        species: "ESPÉCIES"
+    }
 
     return (
-        <div className = "pagination-container">
-            {tabButtons.map(item => (
-                <button 
-                    key={item[0]}
-                    className={`pagination-item ${item[0] === currentTab ? 'active' : 'inactive'}`}
-                    onClick={() => changeTab(item[0])}>
-                        {item[1]}
+        <div className = "tab-container">
+            {Object.entries(tabs).map(([key, title]) => (
+                <button
+                    key={key}
+                    className={`tab-item ${key === currentTab ? 'active' : 'inactive'}`}
+                    onClick={() => changeTab(key)}>
+                    {title}
                 </button>
-                )        
+            )
             )}
 
         </div>

@@ -4,128 +4,69 @@ import "./styles.css";
 import { processData } from "./helpers";
 import "./types";
 import { record } from "./types";
-import Pages from "./Pages";
 import Tabs from "./Tabs";
+import Filter from "../../components/Filter";
+import Pagination from "./Pagination";
 
 const BASE_URL = "https://swapi.dev/api";
 
-const DATA_DICT = {
-  people: [
-    "NOME",
-    "ALTURA",
-    "PESO",
-    "GENERO",
-    /*"ESPÉCIE", "PLANETA NATAL",*/
-    "QT. VEÍCULOS",
-    "QT. NAVES",
-    "QT. FILMES",
-  ],
-  planets: [
-    "NOME",
-    "POPULAÇÃO",
-    "DIAMETRO",
-    "P. ROTAÇÃO",
-    "P. ORBITAL",
-    "CLIMA",
-    "TERRENOS",
-    "GRAVIDADE",
-  ],
-  vehicles: [
-    "NOME",
-    "MODELO",
-    "CLASSE",
-    /*"FABRICANTE",*/ "TRIPULAÇÃO",
-    "PASSAGEIROS",
-    "CAP. CARGA",
-    "VEL MÁX.",
-    "COMPRIMENTO",
-    "QT. PILOTOS",
-  ],
-  starships: [
-    "NOME",
-    "MODELO",
-    "CLASSE",
-    /*"FABRICANTE",*/ "TRIPULAÇÃO",
-    /*"PASS.",*/ "CAP. CARGA",
-    "HYPERDRIVE |",
-    " MGLT |",
-    " COMPRIMENTO |",
-    " QT. PILOTOS",
-  ],
-  films: [
-    "TÍTULO",
-    "N. EPISÓDIO",
-    "DIRETOR",
-    "PRODUTORES",
-    "DATA DE LANÇAMENTO",
-  ],
-  species: [
-    "NOME",
-    "CLASSIFICAÇÃO",
-    "DESIGNAÇÃO",
-    "TAMANHO MÉDIO",
-    "EXPEC. VIDA",
-    /*"PLANETA NATAL",*/ "IDIOMA",
-    "QT. PERSONAGENS",
-    "QT. FILMES",
-  ],
-};
+const headers = {
+  people: {
+    name: "NOME",
+    heigh: "ALTURA",
+    mass: "PESO",
+    gender: "GENERO",
+    vehicles: "QT. VEÍCULOS",
+    starships: "QT. NAVES",
+    films: "QT. FILMES",
+  },
+  planets: {
+    name: "NOME",
+    population: "POPULAÇÃO",
+    diameter: "DIAMETRO",
+    rotation_period: "P. ROTAÇÃO",
+    orbital_period: "P. ORBITAL",
+    climate: "CLIMA",
+    terrain: "TERRENOS",
+    gravity: "GRAVIDADE",
+  },
+  vehicles: {
+    name: "NOME",
+    model: "MODELO",
+    class: "CLASSE",
+    passengers: "PASSAGEIROS",
+    cargo_capacity: "CAP. CARGA",
+    max_atmosphering_speed: "VEL MÁX.",
+    length: "COMPRIMENTO",
+    crew: "QT. PILOTOS",
+  },
+  starships: {
+    name: "NOME",
+    model: "MODELO",
+    class: "CLASSE",
+    hyperdrive_rating: "HYPERDRIVE |",
+    MGLT: " MGLT |",
+    length: " COMPRIMENTO |",
+    crew: " QT. PILOTOS",
+  },
+  films: {
+    title: "TÍTULO",
+    episode_id: "N. EPISÓDIO",
+    director: "DIRETOR",
+    producer: "PRODUTORES",
+    release_date: "DATA DE LANÇAMENTO",
+  },
+  species: {
+    name: "NOME",
+    classification: "CLASSIFICAÇÃO",
+    designation: "DESIGNAÇÃO",
+    average_height: "TAMANHO MÉDIO",
+    average_lifespan: "EXPEC. VIDA",
+    people: "QT. PERSONAGENS",
+    films: "QT. FILMES",
+  }
 
-const FIELDS_DICT = {
-  people: [
-    "name",
-    "height",
-    "mass",
-    "gender",
-    /*"species", "homeworld",*/
-    "vehicles",
-    "starships",
-    "films",
-  ],
-  planets: [
-    "name",
-    "population",
-    "diameter",
-    "rotation_period",
-    "orbital_period",
-    "climate",
-    "terrain",
-    "gravity",
-  ],
-  vehicles: [
-    "name",
-    "model",
-    "vehicle_class",
-    /*"manufacturer",*/ "crew",
-    "passengers",
-    "cargo_capacity",
-    "max_atmosphering_speed",
-    "length",
-    "pilots",
-  ],
-  starships: [
-    "name",
-    "model",
-    "starship_class",
-    /*"manufacturer",*/ "crew",
-    /*"passengers",*/ "cargo_capacity",
-    "hyperdrive_rating",
-    "MGLT",
-    "length",
-    "pilots",
-  ],
-  films: ["title", "episode_id", "director", "producer", "release_date"],
-  species: [
-    "name",
-    "classification",
-    "designation",
-    "average_height",
-    "average_lifespan",
-    /*"homeworld",*/ "language",
-    "people",
-    "films",
-  ],
-};
+}
 
 const Data = () => {
   const CURRENT_SEARCH = "?page=";
@@ -143,44 +84,62 @@ const Data = () => {
     if (index !== currentTab) {
       setCurrentTab(index);
       setCurrentPage(1);
+      setRecords(undefined);
     }
   };
 
   useEffect(() => {
+    let promiseActive = true
     axios
       .get(`${BASE_URL}/${currentTab}/${CURRENT_SEARCH}${currentPage}`)
-      .then(response => {
-        setNumberOfPages(Math.ceil(response.data.count / 10));
-        setRecords(response.data.results);
+      .then(response => { 
+        if (promiseActive){
+          setNumberOfPages(Math.ceil(response.data.count / 10));
+          setRecords(response.data.results);
+      }
       })
-      .catch((error) => console.log(error));
-
+      .catch((error) => console.log(error))    ;  
+      return () => {promiseActive = false}
+    
   }, [currentPage, currentTab]);
 
   return (
+    
     <div className="page-container">
+      <Filter link="/graphs"  text="Ver gráficos" search = {false}  />
       <Tabs currentTab={currentTab} changeTab={changeTab} />
       <table className="records-table" cellPadding="0" cellSpacing="0">
         <thead>
           <tr key="DATA">
-            {DATA_DICT[currentTab].map((value) => (
+            {Object.values(headers[currentTab]).map((value: string) => (
               <th key={value}>{value}</th>
             ))}
           </tr>
         </thead>
+        { 
+        recordsData?
+         (
+          <tbody>
+            {
+              recordsData?.map((record) => (
+                <tr key={record.url}>
+                  {Object.keys(headers[currentTab]).map(field => (
+
+                    <td>{processData(record[field])}</td>
+                  ))}
+                </tr>
+              ))}
+          </tbody>
+        ) : (
         <tbody>
-          {
-          recordsData?.map((record) => (
-            <tr key={record.url}>
-              {FIELDS_DICT[currentTab].map(field => (
-               
-               <td>{processData(record[field])}</td>
-              ))}
-            </tr>
-              ))}
+          <tr>
+            <td>AGUARDE. CARREGANDO DADOS</td>
+          </tr>
         </tbody>
+         )
+        }
       </table>
-      <Pages
+      <Pagination
         currentPage={currentPage}
         changePage={changePage}
         numberOfPages={numberOfPages}

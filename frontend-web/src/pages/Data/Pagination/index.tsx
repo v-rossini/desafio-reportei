@@ -7,7 +7,7 @@ type Props = {
     currentPage: number;
 }
 
-const Pages = ({numberOfPages = 1, changePage, currentPage} : Props) => {
+const Pagination = ({numberOfPages = 1, changePage, currentPage} : Props) => {
     const pageButtons = Array.from(Array(numberOfPages).keys())
 
     return (
@@ -26,5 +26,5 @@ const Pages = ({numberOfPages = 1, changePage, currentPage} : Props) => {
     )
 }
 
-export default Pages;
+export default Pagination;
 
