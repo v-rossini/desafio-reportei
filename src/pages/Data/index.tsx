@@ -33,7 +33,7 @@ const headers = {
   vehicles: {
     name: "NOME",
     model: "MODELO",
-    class: "CLASSE",
+    vehicle_class: "CLASSE",
     passengers: "PASSAGEIROS",
     cargo_capacity: "CAP. CARGA",
     max_atmosphering_speed: "VEL MÁX.",
