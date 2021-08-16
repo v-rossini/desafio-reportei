@@ -13,7 +13,7 @@ const BASE_URL = "https://swapi.dev/api";
 const headers = {
   people: {
     name: "NOME",
-    heigh: "ALTURA",
+    height: "ALTURA",
     mass: "PESO",
     gender: "GENERO",
     vehicles: "QT. VEÍCULOS",
