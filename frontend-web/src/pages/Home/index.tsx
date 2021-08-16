@@ -7,11 +7,12 @@ import './helpers'
 import { RANDOM_MESSAGE } from "./helpers";
 
 const HOME_MESSAGES = ["Quantas personagens existem no universo de Star Wars?", 
-                        "Quantos planetas são mencionados nos filmes de Star Wars?", 
+                        "Quantos planetas são mencionados nos filmes de Star Wars?",
+                        "Quantas naves aparecem nos filmes de Star Wars", 
                         "Quais são os veículos mais populares de Star Wars?",
                         "Quais são as naves mais populares de Star Wars?", 
-                        "Quais são as naves mais rápidas no universo de Star Wars?", 
-                        "Em quantos filmes cada personagem de Star Wars aparece?" 
+                        "Quais são os maiores planetas do universo de Star Wars?", 
+                        "Quais personagem de Star Wars aparecem em mais filmes?" 
                     ];
 
 const Home = () => (

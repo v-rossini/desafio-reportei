@@ -43,7 +43,7 @@ const headers = {
   starships: {
     name: "NOME",
     model: "MODELO",
-    class: "CLASSE",
+    starship_class: "CLASSE",
     hyperdrive_rating: "HYPERDRIVE |",
     MGLT: " MGLT |",
     length: " COMPRIMENTO |",
@@ -140,7 +140,7 @@ const Data = () => {
         ) : (
         <tbody>
           <tr>
-            <td>AGUARDE. CARREGANDO DADOS</td>
+            <td>AGUARDE. CARREGANDO DADOS</td><td>Se isso demorar demais, é possível que a API esteja apresentando alguma lentidão</td>
           </tr>
         </tbody>
          )

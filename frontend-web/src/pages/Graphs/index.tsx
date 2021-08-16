@@ -8,8 +8,6 @@ import axios from "axios"
 import { biggestXinY, getQuantity, MostXinY, MostXinY_Names, MostXinY_Values } from "./helpers"
 
 
-const chartData = [{x: "vitor", y: 29},
-                    {x: "raissa", y: 27 }]
 
 
  const pages = {
@@ -71,13 +69,6 @@ const Graphs = () => {
         }
         
         console.log(stateData)
-/*
-         getApiData().then (() => {
-            setData ( data )
-        console.log("stateData: ")    
-        console.log(stateData)
-        })    
-*/
 
     }, [stateData]  );
 
@@ -97,7 +88,9 @@ const Graphs = () => {
                     width = "900"
                     series = {[{ data: getQuantity(stateData)}]}/>
 
-                    ) : (<h1>Undefined</h1>)  
+                    ) : (<div><h1>Carregando dados.</h1>
+                        <h2>Se isso demorar, é possível que a API esteja apresentando alguma lentidão.</h2>
+                        <h2>Você pode verificar o progresso das requisições na sessão "rede" das ferramentas de desenvolvedor do navegador.</h2></div>)  
                     }                
 
                 </div>
@@ -112,7 +105,7 @@ const Graphs = () => {
                     width = "900"
                     series = {[{ data: biggestXinY(stateData, "planets", "diameter", 5 )}]}/>
 
-                    ) : (<h1>Undefined</h1>)  
+                    ) : (<h1></h1>)  
                     }
                                     
 
@@ -128,7 +121,7 @@ const Graphs = () => {
                     width = "900"
                     series = {[{ data: biggestXinY(stateData, "planets", "population", 5 )}]}/>
 
-                    ) : (<h1>Undefined</h1>)  
+                    ) : (<h1></h1>)  
                     }
                                     
                 </div>
@@ -145,7 +138,7 @@ const Graphs = () => {
                         type = "donut"
                         series = {MostXinY_Values(stateData, "people", "vehicles", 5)}
                         width = "350"
-                        />) : (<div>UNDEFINED</ div>)
+                        />) : (<div></ div>)
                         }
                     </div>
                 </div>
@@ -159,7 +152,7 @@ const Graphs = () => {
                         type = "donut"
                         series = {MostXinY_Values(stateData, "people", "starships", 5)}
                         width = "350"
-                        />) : (<div>UNDEFINED</ div>)
+                        />) : (<div></ div>)
                         }
                     </div>
                 </div>
@@ -173,7 +166,7 @@ const Graphs = () => {
                         type = "donut"
                         series = {MostXinY_Values(stateData, "people", "films", 5)}
                         width = "350"
-                        />) : (<div>UNDEFINED</ div>)
+                        />) : (<div></ div>)
                         }
                     </div>
                 </div>
@@ -187,7 +180,7 @@ const Graphs = () => {
                         type = "donut"
                         series = {MostXinY_Values(stateData, "planets", "residents", 5)}
                         width = "350"
-                        />) : (<div>UNDEFINED</ div>)
+                        />) : (<div></ div>)
                         }
                     </div>
                 </div>
